@@ -1,0 +1,15 @@
+# Compilations
+*.pyc
+
+# Text editors
+*.sublime-workspace
+
+# Databases
+db.sqlite3
+
+# Downloads
+bower_components/
+node_modules/
+
+# Build
+build/

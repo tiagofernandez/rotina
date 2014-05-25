@@ -1,0 +1,6 @@
+{
+  "name": "rotina",
+  "devDependencies": {
+    "gulp": "3.6.2"
+  }
+}
