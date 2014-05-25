@@ -32,9 +32,21 @@ gem install sass
 npm install -g bower gulp
 ```
 
-Create the Postgres database:
-* database name: `rotina`
-* login role: `rotina`
+Create the Postgres login role & database:
+
+```
+CREATE ROLE rotina LOGIN
+  ENCRYPTED PASSWORD 'md54c4d8dbd73e55b4b153395743b3a2339'
+  NOSUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION;
+
+CREATE DATABASE rotina
+  WITH OWNER = rotina
+       ENCODING = 'UTF8'
+       TABLESPACE = pg_default
+       LC_COLLATE = 'C'
+       LC_CTYPE = 'C'
+       CONNECTION LIMIT = -1;
+```
 
 Setup the project:
 
