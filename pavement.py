@@ -1,12 +1,9 @@
 from paver.easy import consume_args, needs, sh, task
 
-from distutils.dir_util import copy_tree, mkpath, remove_tree
-from distutils.file_util import copy_file
 
 @task
 @needs(['deps', 'migrate'])
-@consume_args
-def setup(args):
+def setup():
     """Setups the project."""
     sh('bower install')
     sh('npm install --save-dev')
@@ -15,11 +12,10 @@ def setup(args):
 @task
 @needs(['clean'])
 def build():
-    build_dir = 'build'
-    remove_tree(build_dir)
-    mkpath(build_dir)
-    copy_tree('rotina/static', '%s/static' % build_dir)
-    copy_file('rotina/templates/index.html', build_dir)
+    sh('rm -rf build/')
+    sh('mkdir -p build/static/')
+    sh('rsync -av rotina/static/ build/static/')
+    sh('cp rotina/templates/index.html build/')
 
 @task
 def clean():
