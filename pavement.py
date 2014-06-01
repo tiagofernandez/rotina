@@ -16,10 +16,14 @@ def setup():
 @task
 @needs(['clean'])
 def build():
+    """Builds the production image."""
     sh('rm -rf build/')
-    sh('mkdir -p build/static/')
-    sh('rsync -av rotina/static/ build/static/')
-    sh('cp rotina/templates/index.html build/')
+    sh('mkdir -p build/{rotina,requirements}/')
+    sh('rsync -av rotina/ build/rotina/')
+    sh('cp requirements.txt build/')
+    sh('cp requirements/{common,prod}.txt build/requirements')
+    sh('sed "s/dev/prod/g" manage.py > build/manage.py')
+    sh('docker build --tag="rotina/ubuntu" --rm=true .')
 
 @task
 def clean():
@@ -30,6 +34,7 @@ def clean():
 def deps():
     """Installs the required dependencies for the development environment."""
     for env in ['dev', 'test']:
+        # sh('pip install https://www.djangoproject.com/download/1.7.b4/tarball/')
         sh('pip install -q -r requirements/%s.txt' % env)
 
 @task
@@ -44,7 +49,13 @@ def makemigrations():
 
 @task
 def shell():
+    """Opens a Python shell in the development environment."""
     sh_manage('shell_plus --ipython')
+
+@task
+def shell_prod():
+    """Opens a Bash shell in the production container."""
+    sh('docker run -t -i rotina/ubuntu /bin/bash')
 
 @task
 @needs(['deps'])
@@ -59,6 +70,11 @@ def test(args):
 def run():
     """Runs the development web server on port 8000."""
     sh_manage('runserver_plus 0.0.0.0:8000 --settings=rotina.settings.dev')
+
+@task
+def run_prod():
+    """Runs the production container on port 8000."""
+    sh('docker run -t -i -p 8000:8000 rotina/ubuntu')
 
 def sh_manage(command, capture=False):
     """Runs a shell command through Django's manage.py."""

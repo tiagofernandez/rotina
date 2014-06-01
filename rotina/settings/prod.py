@@ -1,4 +1,4 @@
-from os.path import environ
+from os import environ
 from rotina.settings.common import *
 
 SECRET_KEY = environ['SECRET_KEY']
@@ -6,6 +6,8 @@ SECRET_KEY = environ['SECRET_KEY']
 DEBUG = False
 
 TEMPLATE_DEBUG = False
+
+ALLOWED_HOSTS = ['*']
 
 DATABASES = {
     'default': {

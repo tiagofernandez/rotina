@@ -1,7 +1,5 @@
 # Development
 
-## Project setup
-
 Install [Virtualfish](https://github.com/adambrenecki/virtualfish):
 
 ```
@@ -10,17 +8,17 @@ brew install fish
 chsh -s /usr/local/bin/fish
 ```
 
-Install Python 3.4.0 via [Pyenv](https://github.com/yyuu/pyenv):
+Install Python 3 via [Pyenv](https://github.com/yyuu/pyenv):
 
 ```
 brew install pyenv
-pyenv install 3.4.0
+pyenv install 3.4.1
 ```
 
 Create the virtual environment:
 
 ```
-virtualenv -p ~/.pyenv/versions/3.4.0/bin/python ~/.virtualenvs/rotina
+virtualenv -p ~/.pyenv/versions/3.4.1/bin/python ~/.virtualenvs/rotina
 vf activate rotina
 ```
 
@@ -28,7 +26,6 @@ Install the required development tools:
 
 ```
 pip install paver
-gem install sass
 npm install -g bower gulp
 ```
 
@@ -53,4 +50,20 @@ Setup the project:
 ```
 cd rotina
 paver setup
+```
+
+
+# Production
+
+Install [Docker](http://docs.docker.io/installation/mac/), then build an image:
+
+```
+paver build
+```
+
+Run the container:
+
+```
+paver run_prod
+open http://localhost:8000
 ```
