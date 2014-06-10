@@ -58,12 +58,12 @@ paver setup
 Install [Docker](http://docs.docker.io/installation/mac/), then build an image:
 
 ```
-paver build
+make build
 ```
 
 Run the container:
 
 ```
-paver run_prod
+make run
 open http://localhost:8000
 ```
