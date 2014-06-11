@@ -17,4 +17,4 @@ shell:
 	docker run -t -i rotina/ubuntu /bin/bash
 
 run:
-	docker run -e "DB_HOST=${INTERNAL_IP}" -t -i -p 8182:8000 ${docker_image}
+	docker run -e "DB_HOST=${INTERNAL_IP}" -t -i -p 8000:8000 ${docker_image}

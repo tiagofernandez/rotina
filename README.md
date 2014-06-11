@@ -63,7 +63,14 @@ paver setup
 
 # Production
 
-Install [Docker](http://docs.docker.io/installation/mac/), then build an image:
+Install [Docker](http://docs.docker.io/installation/mac/). Port forwarding might be necessary:
+
+```
+VBoxManage modifyvm "boot2docker-vm" --natpf1 "tcp-port8000,tcp,,8000,,8000"
+VBoxManage modifyvm "boot2docker-vm" --natpf1 "udp-port8000,udp,,8000,,8000"
+```
+
+Build an image:
 
 ```
 make build
