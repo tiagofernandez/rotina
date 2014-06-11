@@ -29,7 +29,7 @@ pip install paver
 npm install -g bower gulp
 ```
 
-Create the Postgres login role & database:
+Create the [Postgres](http://www.postgresql.org/download/) login role & database:
 
 ```
 CREATE ROLE rotina LOGIN
@@ -43,6 +43,14 @@ CREATE DATABASE rotina
        LC_COLLATE = 'C'
        LC_CTYPE = 'C'
        CONNECTION LIMIT = -1;
+```
+
+Allow database connections from anywhere:
+
+```
+sudo sed -i -e"s/^#listen_addresses =.*$/listen_addresses = '*'/" /Library/PostgreSQL/9.3/data/postgresql.conf
+sudo echo "host    all    all    0.0.0.0/0    md5" >> /Library/PostgreSQL/9.3/data/pg_hba.conf
+sudo su postgres -c "/Library/PostgreSQL/9.3/bin/pg_ctl -m fast -D /Library/PostgreSQL/9.3/data restart"
 ```
 
 Setup the project:

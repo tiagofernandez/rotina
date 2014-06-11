@@ -15,18 +15,13 @@ ENV PATH /.pyenv/bin:$PATH
 RUN eval "$(pyenv init -)"
 RUN pyenv install 3.4.1
 RUN pyenv local 3.4.1
-
-# Virtualenv
 RUN easy_install pip
 RUN pip install virtualenv
 RUN virtualenv -p /.pyenv/versions/3.4.1/bin/python /.virtualenvs/app
 
-# Environment
-ADD etc/docker/ /
-
 # Application
 EXPOSE 8000
-ADD etc/scripts/ scripts/
-ADD build/ app/
-RUN ./scripts/install.sh
-CMD ./scripts/run.sh
+ADD build /
+WORKDIR app
+RUN ./install.sh
+CMD ./run.sh
