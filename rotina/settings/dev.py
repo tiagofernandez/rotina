@@ -7,10 +7,10 @@ INSTALLED_APPS += (
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'HOST': 'localhost',
+        'PORT': '5432',
         'NAME': 'rotina',
         'USER': 'rotina',
         'PASSWORD': 'rotina',
-        'HOST': 'localhost',
-        'PORT': '5432',
     }
 }

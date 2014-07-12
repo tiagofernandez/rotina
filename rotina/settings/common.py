@@ -8,6 +8,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
 
+import os
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from os.path import dirname, join
 
@@ -89,6 +91,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     join(PROJECT_DIR, 'static'),
 )
+
+# Absolute path to the directory static files should be collected to.
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 # Templates

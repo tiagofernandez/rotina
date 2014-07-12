@@ -9,21 +9,20 @@ Install [Virtualfish](https://github.com/adambrenecki/virtualfish):
 Install Python 3 via [Pyenv](https://github.com/yyuu/pyenv):
 
     brew install pyenv
-    pyenv install 3.4.1
+    pyenv install 3.4.0
 
 Create the virtual environment:
 
-    virtualenv -p ~/.pyenv/versions/3.4.1/bin/python ~/.virtualenvs/rotina
+    virtualenv -p ~/.pyenv/versions/3.4.0/bin/python ~/.virtualenvs/rotina
     vf activate rotina
 
 Install the required development tools:
 
     pip install paver
     npm install -g bower gulp
+    brew install memcached
 
-Create the [Postgres](http://www.postgresql.org/download/) login role & database:
-
-    sudo -u postgres psql
+Install [Postgres](http://www.postgresql.org/download/), then create a role and database:
 
     CREATE ROLE rotina LOGIN
       ENCRYPTED PASSWORD 'md54c4d8dbd73e55b4b153395743b3a2339'
@@ -37,30 +36,40 @@ Create the [Postgres](http://www.postgresql.org/download/) login role & database
            LC_CTYPE = 'C'
            CONNECTION LIMIT = -1;
 
+Setup the project:
+
+    paver setup
+
+Run the application:
+
+    paver run
+
+
+## Docker
+
+Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) and [Docker](http://docs.docker.io/installation/mac/), then enable port forwarding:
+
+    VBoxManage modifyvm "boot2docker-vm" --natpf1 "tcp-port8080,tcp,,8080,,8080"
+    VBoxManage modifyvm "boot2docker-vm" --natpf1 "udp-port8080,udp,,8080,,8080"
+
 Allow database connections from anywhere:
 
-    sudo sed -i -e"s/^#listen_addresses =.*$/listen_addresses = '*'/" /Library/PostgreSQL/9.3/data/postgresql.conf
+    sudo sed -i -e "s/^#listen_addresses =.*\$/listen_addresses = '*'/" /Library/PostgreSQL/9.3/data/postgresql.conf
     sudo echo "host    all    all    0.0.0.0/0    md5" >> /Library/PostgreSQL/9.3/data/pg_hba.conf
     sudo su postgres -c "/Library/PostgreSQL/9.3/bin/pg_ctl -m fast -D /Library/PostgreSQL/9.3/data restart"
 
-Setup the project:
-
-    cd rotina
-    paver setup
-
-
-# Production
-
-Install [Docker](http://docs.docker.io/installation/mac/). Port forwarding might be necessary:
-
-    VBoxManage modifyvm "boot2docker-vm" --natpf1 "tcp-port8000,tcp,,8000,,8000"
-    VBoxManage modifyvm "boot2docker-vm" --natpf1 "udp-port8000,udp,,8000,,8000"
-
-Build an image:
+Build the image:
 
     make build
 
 Run the container:
 
     make run
-    open http://localhost:8000
+
+Run the container (detached):
+
+    make run_detached
+
+Run the container (shell):
+
+    make run_shell

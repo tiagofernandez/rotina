@@ -6,12 +6,11 @@ from paver.easy import consume_args, needs, sh, task
 sys.path.append(os.path.dirname(__file__))
 
 @task
-@needs(['deps', 'migrate'])
 def setup():
     """Setups the project."""
     sh('bower install')
     sh('npm install --save-dev')
-    sh('gulp')
+    sh('gulp setup')
 
 @task
 def deps():
@@ -23,7 +22,7 @@ def deps():
 @task
 def migrate():
     """Synchronizes the database according to migrations."""
-    sh_manage('migrate')
+    sh_manage('migrate --noinput')
 
 @task
 def makemigrations():
@@ -44,9 +43,9 @@ def test(args):
         sh_manage('test --settings=rotina.settings.test %s' % target)
 
 @task
-@needs(['deps', 'migrate'])
+@needs(['migrate'])
 def run():
-    """Runs the development web server on port 8000."""
+    """Runs the development web server."""
     sh_manage('runserver_plus 0.0.0.0:8000 --settings=rotina.settings.dev')
 
 def sh_manage(command, capture=False):
@@ -54,6 +53,6 @@ def sh_manage(command, capture=False):
     return sh('python manage.py %s' % command, capture=capture)
 
 def list_apps():
-    """Lists apps within the 'rotina' module."""
+    """Lists apps within the application module."""
     from rotina.settings.common import INSTALLED_APPS
     return [app for app in INSTALLED_APPS if app.startswith('rotina')]
