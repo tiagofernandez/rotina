@@ -8,6 +8,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
 
+import os
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from os.path import dirname, join
 
@@ -30,22 +32,24 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+# https://docs.djangoproject.com/en/dev/ref/contrib/
 
 INSTALLED_APPS = (
-    'django.contrib.admin',
-    'django.contrib.auth',
+    # 'django.contrib.admin',
+    # 'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rotina.apps.core',
 )
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    # 'django.contrib.auth.middleware.AuthenticationMiddleware',
+    # 'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -87,6 +91,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     join(PROJECT_DIR, 'static'),
 )
+
+# Absolute path to the directory static files should be collected to.
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 # Templates
