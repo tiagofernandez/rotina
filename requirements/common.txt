@@ -1,3 +1,4 @@
 croniter==0.3.4
 # Django==1.7b4
 psycopg2==2.5.2
+hashids==1.0.1

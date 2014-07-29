@@ -1,5 +1,8 @@
+import time
+
 from croniter import croniter
 from datetime import datetime
+from hashids import Hashids
 
 from django.db import models
 
@@ -11,12 +14,16 @@ class Routine(models.Model):
         ('GL', 'Grocery List'),
         ('TA', 'Task'),
     ))
-
-    # http://en.wikipedia.org/wiki/Cron
-    cron = models.CharField(max_length=100)
+    cron = models.CharField(max_length=100) # http://en.wikipedia.org/wiki/Cron
 
     class Meta:
         db_table = 'routine'
+
+    HASHIDS = Hashids(salt='R0T1N4', alphabet='ABCDEFGHJKLMNPQRSTUVWXYZ23456789', min_length=6)
+
+    @classmethod
+    def generate_code(cls):
+        return cls.HASHIDS.encrypt(round(time.time()))[:10]
 
     def next_occurrence(self, base=datetime.now()):
         occurences = croniter(self.cron, base)
