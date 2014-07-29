@@ -35,7 +35,6 @@ def shell():
     sh_manage('shell_plus --ipython')
 
 @task
-@needs(['deps'])
 @consume_args
 def test(args):
     """Executes the unit tests."""
