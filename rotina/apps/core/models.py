@@ -6,6 +6,8 @@ from hashids import Hashids
 
 from django.db import models
 
+from rotina.libs.database import get_or_none
+
 class Routine(models.Model):
     code = models.CharField(max_length=10, unique=True)
     name = models.CharField(max_length=100)
@@ -28,6 +30,10 @@ class Routine(models.Model):
     def next_occurrence(self, base=datetime.now()):
         occurences = croniter(self.cron, base)
         return occurences.get_next(datetime)
+
+    @staticmethod
+    def get_by_code(code):
+        return get_or_none(Routine, code=code)
 
 class Instance(models.Model):
     routine = models.ForeignKey(Routine)
