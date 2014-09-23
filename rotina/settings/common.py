@@ -102,3 +102,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 TEMPLATE_DIRS = (
     join(PROJECT_DIR, 'templates'),
 )
+
+
+# Local settings
+
+try:
+    from .local import *
+except ImportError:
+    pass
