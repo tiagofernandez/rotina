@@ -16,7 +16,6 @@ def setup():
 def deps():
     """Installs the required dependencies for the development environment."""
     for env in ['dev', 'test']:
-        # sh('pip install https://www.djangoproject.com/download/1.7.b4/tarball/')
         sh('pip install --quiet --upgrade -r requirements/%s.txt' % env)
 
 @task

@@ -1,4 +1,4 @@
-croniter==0.3.4
-# Django==1.7b4
-psycopg2==2.5.2
+croniter==0.3.5
+Django==1.7
+psycopg2==2.5.4
 hashids==1.0.1
