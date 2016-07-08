@@ -16,7 +16,6 @@ def setup():
 def deps():
     """Installs the required dependencies for the development environment."""
     for env in ['dev', 'test']:
-        # sh('pip install https://www.djangoproject.com/download/1.7.b4/tarball/')
         sh('pip install --quiet --upgrade -r requirements/%s.txt' % env)
 
 @task
@@ -35,7 +34,6 @@ def shell():
     sh_manage('shell_plus --ipython')
 
 @task
-@needs(['deps'])
 @consume_args
 def test(args):
     """Executes the unit tests."""

@@ -1,5 +1,5 @@
 DOCKER_CONTAINER = rotina
-DOCKER_IMAGE = ${DOCKER_CONTAINER}/backend
+DOCKER_IMAGE = ${DOCKER_CONTAINER}/application
 
 LOCAL_IP = ${shell ifconfig en1 | sed -En 's/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p'}
 

@@ -17,3 +17,6 @@ static/
 
 # Docker
 logs/
+
+# Local settings
+rotina/settings/local.py
